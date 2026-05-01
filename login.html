@@ -33,33 +33,32 @@
             </a>
         </div>
     </div>
-    <script>
-        function loginbtn() {
+   <script>
+function loginbtn() {
 
-            let enteredpass = document.getElementById("loginpasww").value
-            let enteredaccno = document.getElementById("loginaccno").value
+    let enteredpass = document.getElementById("loginpasww").value.trim()
+    let enteredaccno = document.getElementById("loginaccno").value.trim()
 
-            let fetchingentereddetails = JSON.parse(localStorage.getItem(enteredaccno))
-            if(enteredpass==="" || enteredaccno===""){
-                alert("please fill all fields")
-                return;
-            }
+    if (enteredpass === "" || enteredaccno === "") {
+        alert("please fill all fields")
+        return;
+    }
 
-            if (!fetchingentereddetails) {
-                alert("No user registered")
-                return;
+    let userData = JSON.parse(localStorage.getItem(enteredaccno))
 
-            }
-            else if (enteredpass===fetchingentereddetails.pasw && enteredaccno===fetchingentereddetails.accno) {
-                alert("Successfuly login")
-                window.location.href = "index.html"
-            }
-            else {
-                alert("Invalid Account number Or password")
-            }
-        }
+    if (!userData) {
+        alert("No user registered")
+        return;
+    }
 
-    </script>
+    if (enteredpass === userData.pasw && enteredaccno === userData.accno) {
+        alert("Successfully login")
+        window.location.href = "index.html"
+    } else {
+        alert("Invalid Account number or password")
+    }
+}
+</script>
 </body>
 
 </html>

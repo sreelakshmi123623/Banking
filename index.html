@@ -55,7 +55,7 @@
             <div id="withdrawel" class="text-white ml-40 mt-10 text-xl">
                
             </div>
-            <button onclick="depositbtn()"
+            <button onclick="withdrawbtn()"
   class="text-md ml-20 sm:ml-20 md:ml-45 lg:ml-100 mt-5 bg-white rounded-md p-2 text-black hover:text-white hover:bg-black">
   Submit
 </button>
@@ -63,46 +63,61 @@
     </div>
     </div>
     <script>
-        function depositbtn() {
-            let accnumberr = document.getElementById("accnumber").value
-            let taking = JSON.parse(localStorage.getItem(accnumberr))
-            let fetchh = Number(document.getElementById("amountdep").value)
-            if (!taking) {
-                alert("Account doesnt exists")
-                window.location.href="register.html"
-                return;
-            }
+function depositbtn() {
+    let accnumberr = document.getElementById("accnumber").value.trim()
+    let fetchh = Number(document.getElementById("amountdep").value)
 
-            taking.balance = Number(taking.balance) + fetchh
+    let taking = JSON.parse(localStorage.getItem(accnumberr))
 
-            localStorage.setItem(accnumberr, JSON.stringify(taking))
-            document.getElementById("deposit").innerHTML = `Amount ${fetchh} is stored, account balance is ${taking.balance}`
-            alert("Amount is deposited successfuly")
-            accnumber.value=""
-            amountdep.value=""
-        }
+    if (!taking) {
+        alert("Account doesn't exist")
+        window.location.href = "register.html"
+        return;
+    }
 
-        function withdrawbtn() {
-            let wamount = Number(document.getElementById("withdamt").value)
+    taking.balance = Number(taking.balance) + fetchh
 
-            let acctaking = document.getElementById("withdaccn").value
-            let acctakingg = JSON.parse(localStorage.getItem(acctaking))
+    localStorage.setItem(accnumberr, JSON.stringify(taking))
 
-            if (!acctakingg) {
-                alert("account doesnt exists")
-                window.location.href="register.html"
-                return;
-            }
-            acctakingg.balance = Number(acctakingg.balance) - wamount
+    document.getElementById("deposit").innerHTML =
+        `Amount ${fetchh} is stored, balance is ${taking.balance}`
 
-            localStorage.setItem(acctaking, JSON.stringify(acctakingg))
-            document.getElementById("withdrawel").innerHTML = `Amount ${wamount} is withdrawing, account balance is ${acctakingg.balance}`
-            alert("Amount withdrawed successfuly")
-            withdamt.value=""
-            withdaccn.value=""
+    alert("Amount deposited successfully")
 
-        }
-    </script>
+    document.getElementById("accnumber").value = ""
+    document.getElementById("amountdep").value = ""
+}
+function withdrawbtn() {
+
+    let wamount = Number(document.getElementById("withdamt").value)
+    let acctaking = document.getElementById("withdaccn").value.trim()
+
+    let acctakingg = JSON.parse(localStorage.getItem(acctaking))
+
+    if (!acctakingg) {
+        alert("Account doesn't exist")
+        window.location.href = "register.html"
+        return;
+    }
+
+    if (acctakingg.balance < wamount) {
+        alert("Insufficient balance")
+        return;
+    }
+
+    acctakingg.balance = Number(acctakingg.balance) - wamount
+
+    localStorage.setItem(acctaking, JSON.stringify(acctakingg))
+
+    document.getElementById("withdrawel").innerHTML =
+        `Amount ${wamount} withdrawn, balance is ${acctakingg.balance}`
+
+    alert("Amount withdrawn successfully")
+
+    document.getElementById("withdamt").value = ""
+    document.getElementById("withdaccn").value = ""
+}
+</script>
 </body>
 
 </html>

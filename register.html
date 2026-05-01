@@ -18,30 +18,33 @@
     </div>
 </body>
 <script>
-    function registerbtn(){
-        accdetails={
-            usern:usern.value,
-            pasw:pasw.value,
-            accno:accno.value,
-            balance:0
-        }
-        if(usern.value==="" || pasw.value==="" || accno.value===""){
-            alert("please fill all fields")
-            return;
-        }
-        else if(localStorage.getItem(accdetails.accno)){
-            alert("Account already exists")
-            window.location.href="login.html"
-            return;
-        }
-        else{
-            localStorage.setItem(accdetails.accno,JSON.stringify(accdetails))
-            usern.value=""
-            pasw.value=""
-            accno.value=""
-            alert("Successfuly registered")
-        }
-        window.location.href="login.html"
+function registerbtn() {
+    let accdetails = {
+        usern: usern.value.trim(),
+        pasw: pasw.value.trim(),
+        accno: accno.value.trim(),
+        balance: 0
     }
+
+    if (accdetails.usern === "" || accdetails.pasw === "" || accdetails.accno === "") {
+        alert("please fill all fields")
+        return;
+    }
+
+    if (localStorage.getItem(accdetails.accno)) {
+        alert("Account already exists")
+        window.location.href = "login.html"
+        return;
+    }
+
+    localStorage.setItem(accdetails.accno, JSON.stringify(accdetails))
+
+    usern.value = ""
+    pasw.value = ""
+    accno.value = ""
+
+    alert("Successfully registered")
+    window.location.href = "login.html"
+}
 </script>
 </html>
