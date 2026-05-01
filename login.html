@@ -39,12 +39,14 @@ function loginbtn() {
     let enteredpass = document.getElementById("loginpasww").value.trim()
     let enteredaccno = document.getElementById("loginaccno").value.trim()
 
-    if (enteredpass === "" || enteredaccno === "") {
+    if (!enteredpass || !enteredaccno) {
         alert("please fill all fields")
         return;
     }
 
     let userData = JSON.parse(localStorage.getItem(enteredaccno))
+
+    console.log("DEBUG:", userData)
 
     if (!userData) {
         alert("No user registered")

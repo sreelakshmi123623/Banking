@@ -19,29 +19,34 @@
 </body>
 <script>
 function registerbtn() {
+
+    let usern = document.getElementById("usern").value.trim()
+    let pasw = document.getElementById("pasw").value.trim()
+    let accno = document.getElementById("accno").value.trim()
+
     let accdetails = {
-        usern: usern.value.trim(),
-        pasw: pasw.value.trim(),
-        accno: accno.value.trim(),
+        usern: usern,
+        pasw: pasw,
+        accno: accno,
         balance: 0
     }
 
-    if (accdetails.usern === "" || accdetails.pasw === "" || accdetails.accno === "") {
+    if (usern === "" || pasw === "" || accno === "") {
         alert("please fill all fields")
         return;
     }
 
-    if (localStorage.getItem(accdetails.accno)) {
+    if (localStorage.getItem(accno)) {
         alert("Account already exists")
         window.location.href = "login.html"
         return;
     }
 
-    localStorage.setItem(accdetails.accno, JSON.stringify(accdetails))
+    localStorage.setItem(accno, JSON.stringify(accdetails))
 
-    usern.value = ""
-    pasw.value = ""
-    accno.value = ""
+    document.getElementById("usern").value = ""
+    document.getElementById("pasw").value = ""
+    document.getElementById("accno").value = ""
 
     alert("Successfully registered")
     window.location.href = "login.html"
